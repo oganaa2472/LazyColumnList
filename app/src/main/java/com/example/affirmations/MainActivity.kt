@@ -48,72 +48,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.affirmations.data.Datasource
 import com.example.affirmations.model.Affirmation
-import com.example.affirmations.ui.theme.AffirmationsTheme
+
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AffirmationsTheme {
-                // A surface container using the 'background' color from the theme
-            }
-        }
-    }
-}
-
-@Composable
-fun AffirmationApp(modifier: Modifier= Modifier){
-    val layoutDirection = LocalLayoutDirection.current;
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .padding(
-                start = WindowInsets.safeDrawing.asPaddingValues()
-                    .calculateStartPadding(layoutDirection),
-                end = WindowInsets.safeDrawing.asPaddingValues()
-                    .calculateEndPadding(layoutDirection),
-            ),
-    ) {
-        AffirmationList(
-            affirmations = Datasource().loadAffirmations(),
-        )
-    }
-}
-@Composable
-fun AffirmationList(affirmations:List<Affirmation>, modifier: Modifier=Modifier){
-    LazyColumn(modifier = modifier) {
-        items(affirmations){
-            AffirmationCard(it
-            ,modifier = Modifier.padding(8.dp))
-        }
-    }
-}
-@Composable
-fun AffirmationCard(affirmation: Affirmation,modifier: Modifier= Modifier){
-    Card(modifier=modifier)
-    {
-        Column(){
-            Image(
-                painter = painterResource(affirmation.imageResourceId),
-                contentDescription = stringResource(affirmation.stringResourceId),
-                modifier=Modifier.fillMaxWidth().height(194.dp),
-                contentScale = ContentScale.Crop
-            )
-            Text(
-                text = LocalContext.current.getString(affirmation.stringResourceId),
-                modifier = Modifier.padding(16.dp),
-                style = MaterialTheme.typography.headlineSmall
-            )
 
         }
     }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-private fun AffirmationCardPreview(){
-    AffirmationApp()
-}
